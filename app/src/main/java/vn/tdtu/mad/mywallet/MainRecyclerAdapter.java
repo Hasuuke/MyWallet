@@ -52,7 +52,7 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
         public ViewHolder(@NonNull View itemView){
             super(itemView);
 
-            monthDate = itemView.findViewById(R.id.tvMonthDate);
+            monthDate = itemView.findViewById(R.id.sectionNameTextView);
             childRecycleView = itemView.findViewById(R.id.childRecycleView);
         }
     }

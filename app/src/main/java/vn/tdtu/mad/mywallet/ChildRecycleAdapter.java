@@ -23,7 +23,7 @@ public class ChildRecycleAdapter extends RecyclerView.Adapter<ChildRecycleAdapte
     @Override
     public ViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.item_transaction,parent,false);
+        View view = layoutInflater.inflate(R.layout.item_row,parent,false);
         return new ViewHolder(view);
     }
 
@@ -42,7 +42,7 @@ public class ChildRecycleAdapter extends RecyclerView.Adapter<ChildRecycleAdapte
         public ViewHolder(@NonNull View itemView){
             super(itemView);
 
-            itemView.findViewById(R.id.itemAmount);
+            textView = itemView.findViewById(R.id.itemTextView);
         }
     }
 }

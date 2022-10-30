@@ -38,26 +38,26 @@ public class MainActivity extends AppCompatActivity implements AddDialog.AddDial
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        RecyclerView rvContacts = (RecyclerView) findViewById(R.id.MainRecyclerView);
+        //RecyclerView rvContacts = (RecyclerView) findViewById(R.id.MainRecyclerView);
         add = (Button) findViewById(R.id.add);
         minus = (Button) findViewById(R.id.minus);
         statistic = (Button) findViewById(R.id.statistic);
+
         tvMonthCost = (TextView) findViewById(R.id.tvMonthCost);
         tvCurrentDate = (TextView) findViewById(R.id.tvCurrentDate);
         tvDayCost = (TextView) findViewById(R.id.tvDayCost);
-        mainRecyclerView = (RecyclerView) findViewById(R.id.MainRecyclerView);
+
 
         transactionList = new ArrayList<>();
-
-        adapter = new WalletAdapter(transactionList);
-        rvContacts.setAdapter(adapter);
-        rvContacts.setLayoutManager(new LinearLayoutManager(this));
+//        adapter = new WalletAdapter(transactionList);
+//        rvContacts.setAdapter(adapter);
+//        rvContacts.setLayoutManager(new LinearLayoutManager(this));
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd");
         tvCurrentDate.setText(simpleDateFormat.format(new Date()));
 
         initData();
-
+        mainRecyclerView = (RecyclerView) findViewById(R.id.MainRecyclerView);
         MainRecyclerAdapter mainRecyclerAdapter = new MainRecyclerAdapter(sectionList);
         mainRecyclerView.setAdapter(mainRecyclerAdapter);
         mainRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
@@ -74,20 +74,31 @@ public class MainActivity extends AppCompatActivity implements AddDialog.AddDial
         String sectionOneName = simpleDateFormat.format(date);
         List<String> sectionOneItems = new ArrayList<>();
         sectionOneItems.add("Test");
+        sectionOneItems.add("Whatever");
+        sectionOneItems.add("Why not");
 
         date.setTime(date.getTime() + (1000 * 60 * 60 * 24));
         String sectionTwoName = simpleDateFormat.format(date);
         List<String> sectionTwoItems = new ArrayList<>();
-        sectionOneItems.add("Test");
+        sectionTwoItems.add("Test");
+        sectionTwoItems.add("i dont know");
+        sectionTwoItems.add("sup");
+
 
         date.setTime(date.getTime() + (1000 * 60 * 60 * 24));
         String sectionThreeName = simpleDateFormat.format(date);
         List<String> sectionThreeItems = new ArrayList<>();
-        sectionOneItems.add("Test");
+        sectionThreeItems.add("Test");
+        sectionThreeItems.add("wuzz");
+        sectionThreeItems.add("bruuhh");
+
+
 
         sectionList.add(new Section(sectionOneName,sectionOneItems));
         sectionList.add(new Section(sectionTwoName,sectionTwoItems));
         sectionList.add(new Section(sectionThreeName,sectionThreeItems));
+
+        Log.e(TAG,"initData:" + sectionList.toString());
 
     }
 
