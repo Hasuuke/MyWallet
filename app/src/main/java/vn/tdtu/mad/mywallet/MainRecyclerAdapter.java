@@ -11,10 +11,24 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 
 public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapter.ViewHolder> {
-    ArrayList<Section> sectionList;
+    ArrayList<Day> dayList;
 
-    public MainRecyclerAdapter(ArrayList<Section> sectionList) {
-        this.sectionList = sectionList;
+    public MainRecyclerAdapter(ArrayList<Day> dayList) {
+        this.dayList = dayList;
+    }
+
+    class ViewHolder extends RecyclerView.ViewHolder{
+        TextView monthDate;
+        RecyclerView childRecycleView;
+        TextView tvDayCost;
+
+        public ViewHolder(@NonNull View itemView){
+            super(itemView);
+
+            monthDate = itemView.findViewById(R.id.tvSectionName);
+            childRecycleView = itemView.findViewById(R.id.childRecycleView);
+            tvDayCost = itemView.findViewById(R.id.tvDayCost);
+        }
     }
 
     @NonNull
@@ -28,32 +42,20 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull ViewHolder holder, int position) {
+        Day day = dayList.get(position);
+        ArrayList<Transaction> items = day.getTransactions();
 
-        Section section = sectionList.get(position);
-        String sectionName = section.getSectionName();
-        ArrayList<Transaction> items = section.getSectionsItems();
+        holder.monthDate.setText(day.getDayName());
+        holder.tvDayCost.setText(String.valueOf(day.getDayCost()));
 
-        holder.monthDate.setText(sectionName);
         ChildRecycleAdapter childRecycleAdapter =new ChildRecycleAdapter(items);
         holder.childRecycleView.setAdapter(childRecycleAdapter);
     }
 
     @Override
     public int getItemCount() {
-        return sectionList.size();
+        return dayList.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder{
 
-        TextView monthDate;
-        RecyclerView childRecycleView;
-
-
-        public ViewHolder(@NonNull View itemView){
-            super(itemView);
-
-            monthDate = itemView.findViewById(R.id.tvSectionName);
-            childRecycleView = itemView.findViewById(R.id.childRecycleView);
-        }
-    }
 }

@@ -21,7 +21,6 @@ public class ChildRecycleAdapter extends RecyclerView.Adapter<ChildRecycleAdapte
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{
-        public TextView tvItemDivider;
         public TextView tvAmountTextView;
         public TextView tvDateTextView;
         public TextView tvCategoryTextView;
@@ -29,7 +28,6 @@ public class ChildRecycleAdapter extends RecyclerView.Adapter<ChildRecycleAdapte
         public ViewHolder(@NonNull View itemView){
             super(itemView);
 
-            tvItemDivider = itemView.findViewById(R.id.tvItemDivider);
             tvAmountTextView = (TextView) itemView.findViewById(R.id.tvItemAmount);
             tvDateTextView = (TextView) itemView.findViewById(R.id.tvItemDate);
             btnEdit = (Button) itemView.findViewById(R.id.btnEdit);
@@ -54,14 +52,12 @@ public class ChildRecycleAdapter extends RecyclerView.Adapter<ChildRecycleAdapte
         TextView cTextView = holder.tvCategoryTextView;
         Button button = holder.btnEdit;
 
+
         aTextView.setText(transaction.getAmount()+"€");
         cTextView.setText(transaction.getTransactionTypes());
 
-
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd HH:mm");
         dTextView.setText(simpleDateFormat.format(transaction.getDate()));
-
-
     }
 
     @Override

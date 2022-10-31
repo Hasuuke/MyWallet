@@ -1,6 +1,7 @@
 package vn.tdtu.mad.mywallet;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -8,9 +9,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.RecyclerView;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+
+import static android.content.ContentValues.TAG;
 
 public class MainActivity extends AppCompatActivity {
     Button btnAdd, btnMinus, btnStatistic;
@@ -18,8 +22,9 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView mainRecyclerView;
     MainRecyclerAdapter mainRecyclerAdapter;
 
-    ArrayList<Section> sectionList = new ArrayList<>();
+    ArrayList<Day> dayList = new ArrayList<>();
     ArrayList<Transaction> transactionList;
+    String systemTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,10 +42,12 @@ public class MainActivity extends AppCompatActivity {
         mainRecyclerView = (RecyclerView) findViewById(R.id.MainRecyclerView);
 
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd");
-        tvCurrentDate.setText(simpleDateFormat.format(new Date()));
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        systemTime = simpleDateFormat.format(new Date());
+        Log.e(TAG,"System Time: "+ systemTime);
+        tvCurrentDate.setText(systemTime.substring(0,5));
 
-        mainRecyclerAdapter = new MainRecyclerAdapter(sectionList);
+        mainRecyclerAdapter = new MainRecyclerAdapter(dayList);
         mainRecyclerView.setAdapter(mainRecyclerAdapter);
         mainRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 
@@ -75,24 +82,19 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 try {
-                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm");
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
                     Date date = simpleDateFormat.parse(timeData);
                     transactionList.add(0, new Transaction(date, Double.parseDouble(amount), transactionTypes));
                 } catch (ParseException e) {
                     throw new RuntimeException(e);
                 }
 
-                HashMap<String, ArrayList<Transaction>> sortedList = OrderSupporter.update(transactionList);
-                ArrayList<Section> newList = new ArrayList<>();
+                dayList = OrderSupporter.update(transactionList,systemTime);
+                mainRecyclerAdapter.dayList = dayList;
+                mainRecyclerAdapter.notifyDataSetChanged();
+                Log.e(TAG,"Updated Section list:" + dayList.toString());
+                Log.e(TAG,"Transaction list:" + transactionList.toString());
 
-                for (HashMap.Entry<String, ArrayList<Transaction>> set : sortedList.entrySet()) {
-                    newList.add(new Section(set.getKey(), set.getValue()));
-                }
-                sectionList = newList;
-
-                mainRecyclerAdapter = new MainRecyclerAdapter(sectionList);
-                mainRecyclerView.setAdapter(mainRecyclerAdapter);
-                mainRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
             }
         }
     }

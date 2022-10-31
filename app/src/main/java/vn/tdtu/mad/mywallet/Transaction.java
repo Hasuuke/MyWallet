@@ -14,6 +14,15 @@ public class Transaction
         this.transactionTypes = transactionTypes;
     }
 
+    @Override
+    public String toString() {
+        return "Transaction{" +
+                "date=" + date.toString() +
+                ", amount=" + amount +
+                ", transactionTypes=" + transactionTypes.toString() +
+                '}';
+    }
+
     public Date getDate() {
         return date;
     }

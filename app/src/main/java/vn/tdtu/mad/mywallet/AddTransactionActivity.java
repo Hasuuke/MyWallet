@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,12 +13,13 @@ import android.os.Bundle;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import static android.content.ContentValues.TAG;
+
 public class AddTransactionActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     TextView tvAmount;
     EditText edDateTime;
     String date;
     Spinner spinner;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +59,7 @@ public class AddTransactionActivity extends AppCompatActivity implements Adapter
                         calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
                         calendar.set(Calendar.MINUTE, minute);
 
-                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm");
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
                         edDateTime.setText(simpleDateFormat.format(calendar.getTime()));
                         date = simpleDateFormat.format(calendar.getTime());
                     }
@@ -67,7 +69,6 @@ public class AddTransactionActivity extends AppCompatActivity implements Adapter
         };
         new DatePickerDialog(AddTransactionActivity.this, dateSetListener, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
     }
-
 
     public void cancel(View view) {
         this.finish();
@@ -83,6 +84,7 @@ public class AddTransactionActivity extends AppCompatActivity implements Adapter
             intent.putExtra("TimeDate",date);
 
             setResult(RESULT_OK, intent);
+            Log.e(TAG,"new Transaction("+tvAmount.getText().toString()+", "+spinnerResult+", "+date+") added");
             this.finish();
         }
 
