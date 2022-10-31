@@ -1,10 +1,16 @@
 package vn.tdtu.mad.mywallet;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Section {
     private String sectionName;
-    private List<String> sectionsItems;
+    private ArrayList<Transaction> sectionsItems;
+
+    public Section(String sectionName, ArrayList<Transaction> sectionsItems){
+        this.sectionName = sectionName;
+        this.sectionsItems = sectionsItems;
+    }
 
     public String getSectionName() {
         return sectionName;
@@ -14,12 +20,12 @@ public class Section {
         this.sectionName = sectionName;
     }
 
-    public List<String> getSectionsItems() {
+    public ArrayList<Transaction> getSectionsItems() {
         return sectionsItems;
     }
 
-    public void setSectionsItems(List<String> sectionsItems) {
-        this.sectionsItems = sectionsItems;
+    public void addSectionsItems(ArrayList<Transaction> transaction) {
+        this.sectionsItems= transaction;
     }
 
     @Override
@@ -28,11 +34,6 @@ public class Section {
                 "sectionName='" + sectionName + '\'' +
                 ", sectionsItems=" + sectionsItems +
                 '}';
-    }
-
-    public Section(String sectionName, List<String> sectionsItems){
-        this.sectionName = sectionName;
-        this.sectionsItems = sectionsItems;
     }
 
 

@@ -9,7 +9,7 @@
 
 
     <EditText
-        android:id="@+id/editTextDataTIme"
+        android:id="@+id/etDataTIme"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -22,33 +22,33 @@
         app:layout_constraintVertical_bias="0.299" />
 
     <EditText
-        android:id="@+id/editAmount"
+        android:id="@+id/tvEditAmount"
         android:layout_width="113dp"
         android:layout_height="36dp"
         android:layout_marginStart="4dp"
         android:layout_marginTop="24dp"
         android:inputType="number"
-        app:layout_constraintStart_toEndOf="@+id/textAmount"
+        app:layout_constraintStart_toEndOf="@+id/tvAmount"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
-        android:id="@+id/spinnerTypes"
+        android:id="@+id/tvSpinnerTypes"
         android:layout_width="123dp"
         android:layout_height="19dp"
         android:layout_marginStart="12dp"
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toEndOf="@+id/tvType"
-        app:layout_constraintTop_toBottomOf="@+id/editAmount" />
+        app:layout_constraintTop_toBottomOf="@+id/tvEditAmount" />
 
     <TextView
-        android:id="@+id/textAmount"
+        android:id="@+id/tvAmount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="6dp"
         android:layout_marginTop="33dp"
         android:layout_marginEnd="17dp"
         android:text="Amount:"
-        app:layout_constraintEnd_toStartOf="@+id/editAmount"
+        app:layout_constraintEnd_toStartOf="@+id/tvEditAmount"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -84,7 +84,7 @@
         android:layout_marginTop="24dp"
         android:text="Type"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textAmount" />
+        app:layout_constraintTop_toBottomOf="@+id/tvAmount" />
 
     <TextView
         android:id="@+id/tvDate"

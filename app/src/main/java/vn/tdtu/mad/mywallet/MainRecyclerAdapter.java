@@ -8,12 +8,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapter.ViewHolder> {
-    List<Section> sectionList;
+    ArrayList<Section> sectionList;
 
-    public MainRecyclerAdapter(List<Section> sectionList) {
+    public MainRecyclerAdapter(ArrayList<Section> sectionList) {
         this.sectionList = sectionList;
     }
 
@@ -31,7 +31,7 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
 
         Section section = sectionList.get(position);
         String sectionName = section.getSectionName();
-        List<String> items = section.getSectionsItems();
+        ArrayList<Transaction> items = section.getSectionsItems();
 
         holder.monthDate.setText(sectionName);
         ChildRecycleAdapter childRecycleAdapter =new ChildRecycleAdapter(items);
@@ -52,7 +52,7 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
         public ViewHolder(@NonNull View itemView){
             super(itemView);
 
-            monthDate = itemView.findViewById(R.id.sectionNameTextView);
+            monthDate = itemView.findViewById(R.id.tvSectionName);
             childRecycleView = itemView.findViewById(R.id.childRecycleView);
         }
     }

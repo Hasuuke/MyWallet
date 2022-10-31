@@ -4,7 +4,6 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.text.InputType;
-import android.util.Log;
 import android.view.View;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,11 +12,9 @@ import android.os.Bundle;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import static android.content.ContentValues.TAG;
-
 public class AddTransactionActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-    TextView amount;
-    EditText dateTime;
+    TextView tvAmount;
+    EditText edDateTime;
     String date;
     Spinner spinner;
 
@@ -26,16 +23,16 @@ public class AddTransactionActivity extends AppCompatActivity implements Adapter
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_transaction);
-        amount = findViewById(R.id.editAmount);
-        dateTime = findViewById(R.id.editTextDataTIme);
-        spinner = findViewById(R.id.spinnerTypes);
-        dateTime.setInputType(InputType.TYPE_NULL);
-        dateTime.setShowSoftInputOnFocus(false);
+        tvAmount = findViewById(R.id.tvEditAmount);
+        edDateTime = findViewById(R.id.etDataTIme);
+        spinner = findViewById(R.id.tvSpinnerTypes);
+        edDateTime.setInputType(InputType.TYPE_NULL);
+        edDateTime.setShowSoftInputOnFocus(false);
 
-        dateTime.setOnClickListener(new View.OnClickListener() {
+        edDateTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setDateTime(dateTime);
+                setDateTime(edDateTime);
             }
         });
 
@@ -60,17 +57,15 @@ public class AddTransactionActivity extends AppCompatActivity implements Adapter
                         calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
                         calendar.set(Calendar.MINUTE, minute);
 
-                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd HH:mm");
-                        dateTime.setText(simpleDateFormat.format(calendar.getTime()));
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm");
+                        edDateTime.setText(simpleDateFormat.format(calendar.getTime()));
                         date = simpleDateFormat.format(calendar.getTime());
                     }
                 };
                 new TimePickerDialog(AddTransactionActivity.this, timeSetListener, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false).show();
-
             }
         };
         new DatePickerDialog(AddTransactionActivity.this, dateSetListener, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
-
     }
 
 
@@ -80,9 +75,9 @@ public class AddTransactionActivity extends AppCompatActivity implements Adapter
 
     public void addTransaction(View view) {
 
-        if(!amount.getText().toString().equals("")&& !dateTime.getText().toString().equals("")){
+        if(!tvAmount.getText().toString().equals("")&& !edDateTime.getText().toString().equals("")){
             Intent intent = new Intent();
-            intent.putExtra("Amount",amount.getText().toString() );
+            intent.putExtra("Amount",tvAmount.getText().toString() );
             CharSequence spinnerResult = (CharSequence) spinner.getSelectedItem();
             intent.putExtra("Spinner", spinnerResult.toString());
             intent.putExtra("TimeDate",date);
@@ -94,14 +89,13 @@ public class AddTransactionActivity extends AppCompatActivity implements Adapter
     }
 
     @Override
-    public void onItemSelected(AdapterView<?> parent, View view,
-                               int pos, long id) {
-        parent.getItemAtPosition(pos).toString();
+    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+        parent.getItemAtPosition(pos);
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-        parent.getItemAtPosition(0).toString();
+        parent.getItemAtPosition(0);
     }
 
 }
