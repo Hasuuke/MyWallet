@@ -5,9 +5,9 @@ import java.text.SimpleDateFormat;
 import java.util.Comparator;
 import java.util.Date;
 
-public class SectionComperator implements Comparator<Day> {
+public class SectionDayComperator implements Comparator<SectionDay> {
     @Override
-    public int compare(Day sec1, Day sec2) {
+    public int compare(SectionDay sec1, SectionDay sec2) {
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         Date date1 = null;

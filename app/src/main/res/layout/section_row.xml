@@ -7,12 +7,14 @@
 
     <TextView
         android:id="@+id/tvSectionName"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="190dp"
+        android:layout_height="46dp"
         android:padding="8dp"
+        android:paddingStart="7dp"
         android:text="TextView"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintEnd_toStartOf="@+id/tvDayCost"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -27,11 +29,12 @@
 
     <TextView
         android:id="@+id/tvDayCost"
-        android:layout_width="0dp"
+        android:layout_width="222dp"
+        android:layout_height="46dp"
         android:padding="8dp"
-        android:layout_height="wrap_content"
+        android:paddingStart="90dp"
         android:text="TextView"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,10 +2,14 @@ package vn.tdtu.mad.mywallet;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.text.InputType;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,6 +25,7 @@ public class AddTransactionActivity extends AppCompatActivity implements Adapter
     String date;
     Spinner spinner;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,10 +36,32 @@ public class AddTransactionActivity extends AppCompatActivity implements Adapter
         edDateTime.setInputType(InputType.TYPE_NULL);
         edDateTime.setShowSoftInputOnFocus(false);
 
+
         edDateTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setDateTime(edDateTime);
+            }
+        });
+
+        tvAmount.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (event != null&& (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
+                    InputMethodManager in = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    in.hideSoftInputFromWindow(tvAmount.getApplicationWindowToken(),InputMethodManager.HIDE_NOT_ALWAYS);
+                }
+                return false;
+            }
+        });
+
+        tvAmount.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus){
+                    InputMethodManager imm =(InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(),0);
+                }
             }
         });
 
@@ -82,6 +109,9 @@ public class AddTransactionActivity extends AppCompatActivity implements Adapter
             CharSequence spinnerResult = (CharSequence) spinner.getSelectedItem();
             intent.putExtra("Spinner", spinnerResult.toString());
             intent.putExtra("TimeDate",date);
+
+            String pos = getIntent().getStringExtra("Position");
+            intent.putExtra("Position", pos);
 
             setResult(RESULT_OK, intent);
             Log.e(TAG,"new Transaction("+tvAmount.getText().toString()+", "+spinnerResult+", "+date+") added");

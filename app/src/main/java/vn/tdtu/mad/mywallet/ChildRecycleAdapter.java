@@ -13,25 +13,37 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class ChildRecycleAdapter extends RecyclerView.Adapter<ChildRecycleAdapter.ViewHolder> {
+    private final RecyclerViewInterface recyclerViewInterface;
 
     ArrayList<Transaction> items;
 
-    public ChildRecycleAdapter(ArrayList<Transaction> items) {
+
+    public ChildRecycleAdapter(ArrayList<Transaction> items, RecyclerViewInterface recyclerViewInterface) {
         this.items = items;
+        this.recyclerViewInterface = recyclerViewInterface;
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder{
+    public static class ViewHolder extends RecyclerView.ViewHolder{
         public TextView tvAmountTextView;
         public TextView tvDateTextView;
         public TextView tvCategoryTextView;
-        public Button btnEdit;
-        public ViewHolder(@NonNull View itemView){
+        public ViewHolder(@NonNull View itemView, RecyclerViewInterface recyclerViewInterface){
             super(itemView);
 
             tvAmountTextView = (TextView) itemView.findViewById(R.id.tvItemAmount);
             tvDateTextView = (TextView) itemView.findViewById(R.id.tvItemDate);
-            btnEdit = (Button) itemView.findViewById(R.id.btnEdit);
             tvCategoryTextView = (TextView) itemView.findViewById(R.id.tvItemCategory);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(recyclerViewInterface !=null){
+                        int pos = getAdapterPosition();
+                        if(pos !=RecyclerView.NO_POSITION){
+                            recyclerViewInterface.onItemClick(pos);
+                        }
+                    }
+                }
+            });
         }
     }
 
@@ -41,7 +53,7 @@ public class ChildRecycleAdapter extends RecyclerView.Adapter<ChildRecycleAdapte
     public ViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View view = layoutInflater.inflate(R.layout.item_transaction,parent,false);
-        return new ViewHolder(view);
+        return new ViewHolder(view, recyclerViewInterface);
     }
 
     @Override
@@ -50,8 +62,6 @@ public class ChildRecycleAdapter extends RecyclerView.Adapter<ChildRecycleAdapte
         TextView aTextView = holder.tvAmountTextView;
         TextView dTextView = holder.tvDateTextView;
         TextView cTextView = holder.tvCategoryTextView;
-        Button button = holder.btnEdit;
-
 
         aTextView.setText(transaction.getAmount()+"€");
         cTextView.setText(transaction.getTransactionTypes());

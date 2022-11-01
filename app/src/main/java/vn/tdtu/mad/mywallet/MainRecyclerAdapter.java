@@ -11,13 +11,16 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 
 public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapter.ViewHolder> {
-    ArrayList<Day> dayList;
+    ArrayList<SectionDay> sectionDayList;
+    private final RecyclerViewInterface recyclerViewInterface;
 
-    public MainRecyclerAdapter(ArrayList<Day> dayList) {
-        this.dayList = dayList;
+
+    public MainRecyclerAdapter(ArrayList<SectionDay> sectionDayList, RecyclerViewInterface recyclerViewInterface) {
+        this.sectionDayList = sectionDayList;
+        this.recyclerViewInterface = recyclerViewInterface;
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder{
+    public static class  ViewHolder extends RecyclerView.ViewHolder{
         TextView monthDate;
         RecyclerView childRecycleView;
         TextView tvDayCost;
@@ -42,19 +45,19 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull ViewHolder holder, int position) {
-        Day day = dayList.get(position);
-        ArrayList<Transaction> items = day.getTransactions();
+        SectionDay sectionDay = sectionDayList.get(position);
+        ArrayList<Transaction> items = sectionDay.getTransactions();
 
-        holder.monthDate.setText(day.getDayName());
-        holder.tvDayCost.setText(String.valueOf(day.getDayCost()));
+        holder.monthDate.setText(sectionDay.getDayName());
+        holder.tvDayCost.setText("Day Cost: " + String.valueOf(sectionDay.getDayCost()));
 
-        ChildRecycleAdapter childRecycleAdapter =new ChildRecycleAdapter(items);
+        ChildRecycleAdapter childRecycleAdapter =new ChildRecycleAdapter(items,recyclerViewInterface);
         holder.childRecycleView.setAdapter(childRecycleAdapter);
     }
 
     @Override
     public int getItemCount() {
-        return dayList.size();
+        return sectionDayList.size();
     }
 
 

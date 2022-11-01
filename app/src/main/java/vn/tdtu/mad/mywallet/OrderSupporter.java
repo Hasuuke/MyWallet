@@ -33,15 +33,15 @@ public class OrderSupporter {
         return multiValueMap;
     }
 
-    public static ArrayList<Day> update(ArrayList<Transaction> transactionList, String systemTime) {
+    public static ArrayList<SectionDay> update(ArrayList<Transaction> transactionList, String systemTime) {
         HashMap<String, ArrayList<Transaction>> sortedList = OrderSupporter.update(transactionList);
-        ArrayList<Day> newList = new ArrayList<>();
+        ArrayList<SectionDay> newList = new ArrayList<>();
 
         for (HashMap.Entry<String, ArrayList<Transaction>> set : sortedList.entrySet()) {
-            newList.add(new Day(set.getKey(), set.getValue()));
+            newList.add(new SectionDay(set.getKey(), set.getValue()));
 
         }
-        newList.sort(new SectionComperator());
+        newList.sort(new SectionDayComperator());
 
         Log.e(TAG,"Transaction list:" + transactionList.toString());
         if(newList.isEmpty()){
@@ -117,5 +117,19 @@ public class OrderSupporter {
             }
         }
         return newList;
+    }
+
+    public static double getMonthCost(ArrayList<Transaction> list, String systemTime){
+        double monthCost=0;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/yyyy");
+        String tmp;
+        for(Transaction transaction: list){
+            tmp = simpleDateFormat.format(transaction.getDate());
+            if(tmp.equals(systemTime.substring(3,10))){
+                Log.e(TAG,"String result: "+tmp);
+                monthCost += transaction.getAmount();
+            }
+        }
+        return monthCost;
     }
 }

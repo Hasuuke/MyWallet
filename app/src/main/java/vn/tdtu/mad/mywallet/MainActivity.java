@@ -16,13 +16,13 @@ import java.util.*;
 
 import static android.content.ContentValues.TAG;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements RecyclerViewInterface {
     Button btnAdd, btnMinus, btnStatistic;
     TextView tvCurrentDate, tvMonthCost, tvDayCost;
     RecyclerView mainRecyclerView;
     MainRecyclerAdapter mainRecyclerAdapter;
 
-    ArrayList<Day> dayList = new ArrayList<>();
+    ArrayList<SectionDay> sectionDayList = new ArrayList<>();
     ArrayList<Transaction> transactionList;
     String systemTime;
 
@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         Log.e(TAG,"System Time: "+ systemTime);
         tvCurrentDate.setText(systemTime.substring(0,5));
 
-        mainRecyclerAdapter = new MainRecyclerAdapter(dayList);
+        mainRecyclerAdapter = new MainRecyclerAdapter(sectionDayList, this);
         mainRecyclerView.setAdapter(mainRecyclerAdapter);
         mainRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 
@@ -89,14 +89,62 @@ public class MainActivity extends AppCompatActivity {
                     throw new RuntimeException(e);
                 }
 
-                dayList = OrderSupporter.update(transactionList,systemTime);
-                mainRecyclerAdapter.dayList = dayList;
+                sectionDayList = OrderSupporter.update(transactionList,systemTime);
+                mainRecyclerAdapter.sectionDayList = sectionDayList;
                 mainRecyclerAdapter.notifyDataSetChanged();
-                Log.e(TAG,"Updated Section list:" + dayList.toString());
+                update(transactionList,systemTime);
+                Log.e(TAG,"Updated Section list:" + sectionDayList.toString());
+                Log.e(TAG,"Transaction list:" + transactionList.toString());
+
+            }
+        }else if (requestCode == 2) {
+            if (resultCode == RESULT_OK) {
+                String amount = data.getStringExtra("Amount");
+                String type = data.getStringExtra("Spinner");
+                String timeData = data.getStringExtra("TimeDate");
+                String position = data.getStringExtra("Position");
+                TransactionTypes transactionTypes = TransactionTypes.GENERAL;
+
+                switch (type) {
+                    case "General":
+                        transactionTypes = TransactionTypes.GENERAL;
+                        break;
+                    case "Clothes":
+                        transactionTypes = TransactionTypes.CLOTHES;
+                        break;
+                    case "Food":
+                        transactionTypes = TransactionTypes.FOOD;
+
+                        break;
+                    case "Insurance":
+                        transactionTypes = TransactionTypes.INSURANCE;
+                        break;
+                }
+
+                try {
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+                    Date date = simpleDateFormat.parse(timeData);
+
+                    transactionList.get(Integer.parseInt(position)).setDate(date);
+                    transactionList.get(Integer.parseInt(position)).setAmount(Double.parseDouble(amount));
+                    transactionList.get(Integer.parseInt(position)).setTransactionTypes(transactionTypes);
+                } catch (ParseException e) {
+                    throw new RuntimeException(e);
+                }
+
+                sectionDayList = OrderSupporter.update(transactionList,systemTime);
+                mainRecyclerAdapter.sectionDayList = sectionDayList;
+                mainRecyclerAdapter.notifyDataSetChanged();
+                update(transactionList,systemTime);
+                Log.e(TAG,"Updated Section list:" + sectionDayList.toString());
                 Log.e(TAG,"Transaction list:" + transactionList.toString());
 
             }
         }
+    }
+
+    public  void update(ArrayList<Transaction> list, String systemTime){
+        tvMonthCost.setText("Total Cost: "+OrderSupporter.getMonthCost(list,systemTime));
     }
 
 
@@ -111,6 +159,14 @@ public class MainActivity extends AppCompatActivity {
 
     public void minus(View view) {
 
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        Intent intent = new Intent(MainActivity.this, AddTransactionActivity.class);
+        intent.putExtra("Position", String.valueOf(position));
+        startActivityForResult(intent, 2);
+        Log.e(TAG,"Position Interface: "+position);
     }
 }
 

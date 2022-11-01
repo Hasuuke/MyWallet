@@ -2,7 +2,7 @@ package vn.tdtu.mad.mywallet;
 
 import java.util.ArrayList;
 
-public class Day {
+public class SectionDay {
     private String dayName;
     private ArrayList<Transaction> transactions;
 
@@ -16,7 +16,7 @@ public class Day {
     }
 
 
-    public Day(String sectionName, ArrayList<Transaction> transactions){
+    public SectionDay(String sectionName, ArrayList<Transaction> transactions){
         this.dayName = sectionName;
         this.transactions = transactions;
     }
