@@ -10,12 +10,12 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
-public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapter.ViewHolder> {
+public class StatisticRecyclerAdapter extends RecyclerView.Adapter<StatisticRecyclerAdapter.ViewHolder> {
     ArrayList<SectionDay> sectionDayList;
     private final RecyclerViewInterface recyclerViewInterface;
 
 
-    public MainRecyclerAdapter(ArrayList<SectionDay> sectionDayList, RecyclerViewInterface recyclerViewInterface) {
+    public StatisticRecyclerAdapter(ArrayList<SectionDay> sectionDayList, RecyclerViewInterface recyclerViewInterface) {
         this.sectionDayList = sectionDayList;
         this.recyclerViewInterface = recyclerViewInterface;
     }
@@ -25,12 +25,25 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
         RecyclerView childRecycleView;
         TextView tvDayCost;
 
-        public ViewHolder(@NonNull View itemView){
+        public ViewHolder(@NonNull View itemView,RecyclerViewInterface recyclerViewInterface){
             super(itemView);
 
             monthDate = itemView.findViewById(R.id.tvSectionName);
             childRecycleView = itemView.findViewById(R.id.childRecycleView);
             tvDayCost = itemView.findViewById(R.id.tvDayCost);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(recyclerViewInterface !=null){
+                        int pos = getAdapterPosition();
+                        if(pos !=RecyclerView.NO_POSITION){
+                            recyclerViewInterface.onItemClick(pos);
+                        }
+                    }
+                }
+            });
+
+
         }
     }
 
@@ -40,17 +53,19 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
     public ViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View view = layoutInflater.inflate(R.layout.section_row,parent,false);
-        return new ViewHolder(view);
+        return new ViewHolder(view,recyclerViewInterface);
     }
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull ViewHolder holder, int position) {
         SectionDay sectionDay = sectionDayList.get(position);
         ArrayList<Transaction> items = sectionDay.getTransactions();
-        ChildRecycleAdapter childRecycleAdapter =new ChildRecycleAdapter(items,recyclerViewInterface);
 
         holder.monthDate.setText(sectionDay.getDayName());
-        holder.tvDayCost.setText("Total Day Cost: " + sectionDay.getDayCost());
+        holder.tvDayCost.setText("Total Month Cost: " + String.valueOf(sectionDay.getDayCost()));
+
+
+        statisticChildRecycleAdapter childRecycleAdapter =new statisticChildRecycleAdapter(items,recyclerViewInterface);
         holder.childRecycleView.setAdapter(childRecycleAdapter);
     }
 

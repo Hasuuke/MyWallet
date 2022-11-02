@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Comparator;
 import java.util.Date;
 
-public class SectionDayComperator implements Comparator<SectionDay> {
+public class SectionMonthComperator implements Comparator<SectionDay> {
     /**
      * Sorts Descending
      * @param sec1 the first object to be compared.
@@ -14,7 +14,7 @@ public class SectionDayComperator implements Comparator<SectionDay> {
      */
     @Override
     public int compare(SectionDay sec1, SectionDay sec2) {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/yyyy");
         Date date1 = null;
         try {
             date1 = sdf.parse(sec1.getDayName());

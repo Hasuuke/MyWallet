@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyWallet">
         <activity
+            android:name=".StatisticActivity"
+            android:exported="true" />
+        <activity
             android:name=".AddTransactionActivity"
             android:exported="true" />
         <activity

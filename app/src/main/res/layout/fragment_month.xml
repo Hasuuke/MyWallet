@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/teal_700"
+    android:orientation="vertical"
+    tools:context=".MonthFragment">
+
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/pcMonth"
+        android:layout_width="match_parent"
+        android:layout_height="369dp">
+
+    </com.github.mikephil.charting.charts.PieChart>
+
+</LinearLayout>

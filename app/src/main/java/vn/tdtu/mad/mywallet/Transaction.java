@@ -1,12 +1,25 @@
 package vn.tdtu.mad.mywallet;
 
+import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
+import android.util.Log;
+import androidx.annotation.NonNull;
+
+import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import static android.content.ContentValues.TAG;
 
 public class Transaction
 {
     private Date date;
     private double amount;
     private TransactionTypes transactionTypes;
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+
 
     public Transaction(Date date, double amount, TransactionTypes transactionTypes) {
         this.date = date;
@@ -57,4 +70,6 @@ public class Transaction
     public void setTransactionTypes(TransactionTypes transactionTypes) {
         this.transactionTypes = transactionTypes;
     }
+
+
 }

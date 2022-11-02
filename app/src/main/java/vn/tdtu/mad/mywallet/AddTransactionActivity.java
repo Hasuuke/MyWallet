@@ -37,13 +37,14 @@ public class AddTransactionActivity extends AppCompatActivity implements Adapter
         edDateTime.setShowSoftInputOnFocus(false);
 
 
+        //Touch and keyboard management
         edDateTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setDateTime(edDateTime);
             }
         });
-
+        //Hide Keyboard
         tvAmount.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -54,7 +55,6 @@ public class AddTransactionActivity extends AppCompatActivity implements Adapter
                 return false;
             }
         });
-
         tvAmount.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -65,12 +65,18 @@ public class AddTransactionActivity extends AppCompatActivity implements Adapter
             }
         });
 
+
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.Categories, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
     }
 
+    /**
+     * Starts Alertdialog(Date Picker & Time Picker) and returns String of current Date
+     * @param v Current View
+     *
+     */
     private void setDateTime(final EditText v) {
         final Calendar calendar = Calendar.getInstance();
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
@@ -101,8 +107,11 @@ public class AddTransactionActivity extends AppCompatActivity implements Adapter
         this.finish();
     }
 
+    /**
+     * Extracts the user input and sends the data back to previous activity
+     * @param view
+     */
     public void addTransaction(View view) {
-
         if(!tvAmount.getText().toString().equals("")&& !edDateTime.getText().toString().equals("")){
             Intent intent = new Intent();
             intent.putExtra("Amount",tvAmount.getText().toString() );

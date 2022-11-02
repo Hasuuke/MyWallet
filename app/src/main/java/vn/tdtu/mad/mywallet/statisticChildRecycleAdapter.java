@@ -3,7 +3,6 @@ package vn.tdtu.mad.mywallet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,13 +11,13 @@ import org.jetbrains.annotations.NotNull;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-public class ChildRecycleAdapter extends RecyclerView.Adapter<ChildRecycleAdapter.ViewHolder> {
+public class statisticChildRecycleAdapter extends RecyclerView.Adapter<statisticChildRecycleAdapter.ViewHolder> {
     private final RecyclerViewInterface recyclerViewInterface;
 
     ArrayList<Transaction> items;
 
 
-    public ChildRecycleAdapter(ArrayList<Transaction> items, RecyclerViewInterface recyclerViewInterface) {
+    public statisticChildRecycleAdapter(ArrayList<Transaction> items, RecyclerViewInterface recyclerViewInterface) {
         this.items = items;
         this.recyclerViewInterface = recyclerViewInterface;
     }
@@ -33,17 +32,7 @@ public class ChildRecycleAdapter extends RecyclerView.Adapter<ChildRecycleAdapte
             tvAmountTextView = (TextView) itemView.findViewById(R.id.tvItemAmount);
             tvDateTextView = (TextView) itemView.findViewById(R.id.tvItemDate);
             tvCategoryTextView = (TextView) itemView.findViewById(R.id.tvItemCategory);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(recyclerViewInterface !=null){
-                        int pos = getAdapterPosition();
-                        if(pos !=RecyclerView.NO_POSITION){
-                            recyclerViewInterface.onItemClick(pos);
-                        }
-                    }
-                }
-            });
+
         }
     }
 
@@ -58,11 +47,11 @@ public class ChildRecycleAdapter extends RecyclerView.Adapter<ChildRecycleAdapte
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull ViewHolder holder, int position) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM HH:mm");
         Transaction transaction = items.get(position);
-
         holder.tvAmountTextView.setText(transaction.getAmount()+"€");
         holder.tvCategoryTextView.setText(transaction.getTransactionTypes());
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM HH:mm");
         holder.tvDateTextView.setText(simpleDateFormat.format(transaction.getDate()));
     }
 
