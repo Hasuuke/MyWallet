@@ -1,7 +1,6 @@
 package vn.tdtu.mad.mywallet;
 
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,16 +16,15 @@ import static android.content.ContentValues.TAG;
 
 public class StatisticActivity extends AppCompatActivity implements RecyclerViewInterface{
 
-    Button btnFragmentMonth, btnFragmentYear;
     RecyclerView mainRecyclerView;
     StatisticRecyclerAdapter mainRecyclerAdapter;
     static ArrayList<SectionDay> sectionDays;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistic);
+
         mainRecyclerView = (RecyclerView) findViewById(R.id.rvStatistics);
 
         sectionDays = OrderSupporter.updateMonth(MainActivity.transactionList,getIntent().getStringExtra("systemTime"));
@@ -35,13 +33,6 @@ public class StatisticActivity extends AppCompatActivity implements RecyclerView
         mainRecyclerAdapter = new StatisticRecyclerAdapter(sectionDays,this);
         mainRecyclerView.setAdapter(mainRecyclerAdapter);
         mainRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
-    }
-
-    private void replaceFragment(Fragment fragment) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frameLayout,fragment);
-        fragmentTransaction.commit();
     }
 
     @Override

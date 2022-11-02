@@ -8,10 +8,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.*;
 import com.github.mikephil.charting.utils.ColorTemplate;
@@ -36,6 +34,7 @@ public class MonthFragment extends Fragment {
     private String mParam2;
 
     private View view;
+    private Button btnShowYear;
 
     private ArrayList data;
     private int index;
@@ -69,8 +68,6 @@ public class MonthFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
-
     }
     private ArrayList pcData(){
         data = new ArrayList<>();
@@ -95,14 +92,26 @@ public class MonthFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         String position = getArguments().getString("Pos");
         index = Integer.parseInt(position);
-
-
         view = inflater.inflate(R.layout.fragment_month, container, false);
+        btnShowYear = view.findViewById(R.id.btnShowYear);
+
+        btnShowYear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putString("Pos", String.valueOf(position));
+                yearFragment yearFragment = new yearFragment();
+                yearFragment.setArguments(bundle);
+                FragmentManager fragmentManager = Objects.requireNonNull(getActivity()).getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.frameLayout,yearFragment);
+                fragmentTransaction.commit();
+                Log.e(TAG, "Fragment month start year");
+            }
+        });
 
         PieChart pieChart = view.findViewById(R.id.pcMonth);
         pcData();
@@ -116,8 +125,6 @@ public class MonthFragment extends Fragment {
 
         pieDataSet.setValueTextSize(16f);
         pieChart.getDescription().setEnabled(true);
-
-
         return view;
     }
 }

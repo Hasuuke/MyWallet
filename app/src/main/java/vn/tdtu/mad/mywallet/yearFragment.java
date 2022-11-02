@@ -39,7 +39,6 @@ public class yearFragment extends Fragment {
     private String mParam2;
 
     private View view;
-    private BarChart  barChart;
     private PieChart pieChart;
     private Button btnShowMonth;
     private int index;
@@ -87,7 +86,6 @@ public class yearFragment extends Fragment {
 
         ArrayList arrayList = new ArrayList<>();
 
-
         for(SectionDay sectionDay:StatisticActivity.sectionDays){
             if(String.valueOf(sectionDay.getYear()).equals(currentDate)){
                 Log.e(TAG,"Year Statistic: " +sectionDay.getYear());
@@ -98,16 +96,13 @@ public class yearFragment extends Fragment {
                 }
                 if(array[1]!=0) {
                     clothes.add(array[1]);
-
                 }
                 if(array[2]!=0) {
                     food.add(array[2]);
-
                 }
                 if(array[3]!=0) {
                     insurance.add(array[3]);
                 }
-
             }
         }
         if(!general.isEmpty()){
@@ -136,43 +131,18 @@ public class yearFragment extends Fragment {
             for(Double item: insurance){
                 result +=item;
             }
-            arrayList.add(new PieEntry(result.floatValue(),"Clothes"));
+            arrayList.add(new PieEntry(result.floatValue(),"Insurance"));
         }
         Log.e(TAG,"Pie Array list: "+arrayList.toString());
-
         return arrayList;
     }
 
-/*    private ArrayList getBarData(){
-        String currentDate = String.valueOf(StatisticActivity.sectionDays.get(index).getYear());
-
-        ArrayList arrayList = new ArrayList<>();
-
-        for(SectionDay sectionDay:StatisticActivity.sectionDays){
-            Log.e(TAG, "If Statement Statistic: "+sectionDay.getYear()+ " + "+ currentDate);
-            if(String.valueOf(sectionDay.getYear()).equals(currentDate)){
-                arrayList.add(new BarEntry(2,(float) sectionDay.getDayCost(),sectionDay.getDayName()));
-            }
-        }
-
-        Log.e(TAG,"Bar Array list: "+arrayList.toString());
-
-
-
-
-        return new ArrayList();
-    }*/
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         String position = getArguments().getString("Pos");
         index = Integer.parseInt(position);
 
-
         view = inflater.inflate(R.layout.fragment_year, container, false);
-        barChart = view.findViewById(R.id.bcYear);
         pieChart = view.findViewById(R.id.pcYear);
         btnShowMonth = view.findViewById(R.id.btnShowMonth);
         btnShowMonth.setOnClickListener(new View.OnClickListener() {
@@ -190,23 +160,6 @@ public class yearFragment extends Fragment {
             }
         });
 
-        ArrayList<BarEntry> test = new ArrayList<>();
-        test.add(new BarEntry(0f,10,"test"));
-        test.add(new BarEntry(1f,20));
-        test.add(new BarEntry(2f,30));
-        test.add(new BarEntry(3f,40));
-
-        BarDataSet barDataSet = new BarDataSet(test,"Expenses of the year");
-        BarData barData = new BarData(barDataSet);
-        barChart.setData(barData);
-
-        barDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-        barDataSet.setValueTextColor(Color.BLACK);
-
-        barDataSet.setValueTextSize(16f);
-        barChart.getDescription().setEnabled(true);
-
-
         PieDataSet pieDataSet = new PieDataSet(getPieData(),"Type of expenses in a year");
         PieData pieData = new PieData(pieDataSet);
         pieChart.setData(pieData);
@@ -216,7 +169,6 @@ public class yearFragment extends Fragment {
 
         pieDataSet.setValueTextSize(16f);
         pieChart.getDescription().setEnabled(true);
-
 
         return view;
     }

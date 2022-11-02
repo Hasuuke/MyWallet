@@ -14,7 +14,6 @@ public class StatisticRecyclerAdapter extends RecyclerView.Adapter<StatisticRecy
     ArrayList<SectionDay> sectionDayList;
     private final RecyclerViewInterface recyclerViewInterface;
 
-
     public StatisticRecyclerAdapter(ArrayList<SectionDay> sectionDayList, RecyclerViewInterface recyclerViewInterface) {
         this.sectionDayList = sectionDayList;
         this.recyclerViewInterface = recyclerViewInterface;
@@ -42,8 +41,6 @@ public class StatisticRecyclerAdapter extends RecyclerView.Adapter<StatisticRecy
                     }
                 }
             });
-
-
         }
     }
 
@@ -63,7 +60,6 @@ public class StatisticRecyclerAdapter extends RecyclerView.Adapter<StatisticRecy
 
         holder.monthDate.setText(sectionDay.getDayName());
         holder.tvDayCost.setText("Total Month Cost: " + String.valueOf(sectionDay.getDayCost()));
-
 
         statisticChildRecycleAdapter childRecycleAdapter =new statisticChildRecycleAdapter(items,recyclerViewInterface);
         holder.childRecycleView.setAdapter(childRecycleAdapter);

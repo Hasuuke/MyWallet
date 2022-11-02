@@ -18,22 +18,15 @@
             <com.github.mikephil.charting.charts.PieChart
                 android:id="@+id/pcYear"
                 android:layout_width="match_parent"
-                android:layout_height="294dp">
+                android:layout_height="319dp">
 
             </com.github.mikephil.charting.charts.PieChart>
-
-            <com.github.mikephil.charting.charts.BarChart
-                android:id="@+id/bcYear"
-                android:layout_width="match_parent"
-                android:layout_height="398dp">
-
-            </com.github.mikephil.charting.charts.BarChart>
 
             <Button
                 android:id="@+id/btnShowMonth"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Button" />
+                android:text="Show Month" />
         </LinearLayout>
     </ScrollView>
 

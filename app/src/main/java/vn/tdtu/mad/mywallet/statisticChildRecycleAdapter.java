@@ -13,9 +13,7 @@ import java.util.ArrayList;
 
 public class statisticChildRecycleAdapter extends RecyclerView.Adapter<statisticChildRecycleAdapter.ViewHolder> {
     private final RecyclerViewInterface recyclerViewInterface;
-
     ArrayList<Transaction> items;
-
 
     public statisticChildRecycleAdapter(ArrayList<Transaction> items, RecyclerViewInterface recyclerViewInterface) {
         this.items = items;

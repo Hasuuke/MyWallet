@@ -41,8 +41,6 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         tvDayCost = (TextView) findViewById(R.id.tvDayCost);
 
         mainRecyclerView = (RecyclerView) findViewById(R.id.MainRecyclerView);
-
-
         //Time Attributes
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         systemTime = simpleDateFormat.format(new Date());
@@ -57,10 +55,6 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         mainRecyclerAdapter = new MainRecyclerAdapter(sectionDayList, this);
         mainRecyclerView.setAdapter(mainRecyclerAdapter);
         mainRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
-
-
-
-
     }
 
     @Override

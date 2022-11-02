@@ -1,27 +1,11 @@
 package vn.tdtu.mad.mywallet;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-import androidx.annotation.NonNull;
-
-import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class SectionDay  {
     private String dayName;
     private ArrayList<Transaction> transactions;
-
-
-
-    public double getDayCost() {
-        double dayCost=0;
-        for(Transaction transaction: transactions){
-            dayCost+= transaction.getAmount();
-        }
-        return dayCost;
-    }
-
 
     public SectionDay(String sectionName, ArrayList<Transaction> transactions){
         this.dayName = sectionName;
@@ -69,8 +53,13 @@ public class SectionDay  {
         return Integer.parseInt(simpleDateFormat.format(transactions.get(0).getDate()));
     }
 
-
-
+    public double getDayCost() {
+        double dayCost=0;
+        for(Transaction transaction: transactions){
+            dayCost+= transaction.getAmount();
+        }
+        return dayCost;
+    }
 
     @Override
     public String toString() {
@@ -79,7 +68,4 @@ public class SectionDay  {
                 ", transactions=" + transactions.toString() +
                 '}';
     }
-
-
-
 }

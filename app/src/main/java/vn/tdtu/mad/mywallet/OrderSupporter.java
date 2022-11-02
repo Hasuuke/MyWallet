@@ -54,7 +54,6 @@ public class OrderSupporter {
     }
 
     public static ArrayList<SectionDay> update(ArrayList<Transaction> transactionList, String systemTime) {
-
         HashMap<String, ArrayList<Transaction>> sortedList = OrderSupporter.update(transactionList);
         ArrayList<SectionDay> newList = new ArrayList<>();
 
@@ -141,7 +140,6 @@ public class OrderSupporter {
     }
 
     public static ArrayList<SectionDay> updateMonth(ArrayList<Transaction> transactionList, String systemTime) {
-
         HashMap<String, ArrayList<Transaction>> sortedList = OrderSupporter.updateMonth(transactionList);
         ArrayList<SectionDay> newList = new ArrayList<>();
 
@@ -196,9 +194,7 @@ public class OrderSupporter {
                 }
             }
         }
-
         Log.e(TAG,"Updated Section list:" + newList.toString());
-
         return newList;
     }
 
@@ -215,6 +211,4 @@ public class OrderSupporter {
         }
         return monthCost;
     }
-
-
 }
