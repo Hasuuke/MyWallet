@@ -3,6 +3,8 @@ package vn.tdtu.mad.mywallet;
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,7 +21,7 @@ import static android.content.ContentValues.TAG;
 
 public class MainActivity extends AppCompatActivity implements RecyclerViewInterface {
     Button btnAdd, btnMinus, btnStatistic;
-    TextView tvCurrentDate, tvMonthCost, tvDayCost;
+    TextView tvCurrentDate, tvMonthCost;
     RecyclerView mainRecyclerView;
     MainRecyclerAdapter mainRecyclerAdapter;
 
@@ -32,13 +34,11 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        btnAdd = (Button) findViewById(R.id.add);
-        btnMinus = (Button) findViewById(R.id.btnMinus);
+        btnAdd = (Button) findViewById(R.id.btnPlus);
         btnStatistic = (Button) findViewById(R.id.btbStatistic);
 
         tvMonthCost = (TextView) findViewById(R.id.tvMonthCost);
         tvCurrentDate = (TextView) findViewById(R.id.tvCurrentDate);
-        tvDayCost = (TextView) findViewById(R.id.tvDayCost);
 
         mainRecyclerView = (RecyclerView) findViewById(R.id.MainRecyclerView);
         //Time Attributes
@@ -46,11 +46,6 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         systemTime = simpleDateFormat.format(new Date());
         Log.e(TAG,"System Time: "+ systemTime);
         tvCurrentDate.setText(systemTime.substring(0,5));
-
-
-        transactionList.add(new Transaction(new Date(),22,TransactionTypes.CLOTHES));
-        transactionList.add(new Transaction(new Date(),22,TransactionTypes.INSURANCE));
-        sectionDayList.add(new SectionDay("test",transactionList));
 
         mainRecyclerAdapter = new MainRecyclerAdapter(sectionDayList, this);
         mainRecyclerView.setAdapter(mainRecyclerAdapter);
@@ -148,7 +143,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
     }
 
     public  void update(ArrayList<Transaction> list, String systemTime){
-        tvMonthCost.setText("Months Total Cost: "+OrderSupporter.getMonthCost(list,systemTime));
+        tvMonthCost.setText(String.valueOf(OrderSupporter.getMonthCost(list,systemTime))+"€");
     }
 
 
@@ -161,10 +156,6 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         Intent intent = new Intent(this, StatisticActivity.class);
         intent.putExtra("systemTime",systemTime);
         startActivity(intent);
-    }
-
-    public void minus(View view) {
-
     }
 
     //Interface function for current item position

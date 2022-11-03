@@ -29,13 +29,13 @@ public class AddTransactionActivity extends AppCompatActivity implements Adapter
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_add_transaction);
         tvAmount = findViewById(R.id.tvEditAmount);
         edDateTime = findViewById(R.id.etDataTIme);
         spinner = findViewById(R.id.tvSpinnerTypes);
         edDateTime.setInputType(InputType.TYPE_NULL);
         edDateTime.setShowSoftInputOnFocus(false);
-
 
         //Touch and keyboard management
         edDateTime.setOnClickListener(new View.OnClickListener() {
@@ -126,7 +126,6 @@ public class AddTransactionActivity extends AppCompatActivity implements Adapter
             Log.e(TAG,"new Transaction("+tvAmount.getText().toString()+", "+spinnerResult+", "+date+") added");
             this.finish();
         }
-
     }
 
     @Override

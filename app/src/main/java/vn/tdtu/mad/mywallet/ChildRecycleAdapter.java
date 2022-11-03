@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,9 +15,7 @@ import java.util.ArrayList;
 
 public class ChildRecycleAdapter extends RecyclerView.Adapter<ChildRecycleAdapter.ViewHolder> {
     private final RecyclerViewInterface recyclerViewInterface;
-
     ArrayList<Transaction> items;
-
 
     public ChildRecycleAdapter(ArrayList<Transaction> items, RecyclerViewInterface recyclerViewInterface) {
         this.items = items;
@@ -27,12 +26,15 @@ public class ChildRecycleAdapter extends RecyclerView.Adapter<ChildRecycleAdapte
         public TextView tvAmountTextView;
         public TextView tvDateTextView;
         public TextView tvCategoryTextView;
+        public ImageView imageView;
+
         public ViewHolder(@NonNull View itemView, RecyclerViewInterface recyclerViewInterface){
             super(itemView);
 
             tvAmountTextView = (TextView) itemView.findViewById(R.id.tvItemAmount);
             tvDateTextView = (TextView) itemView.findViewById(R.id.tvItemDate);
             tvCategoryTextView = (TextView) itemView.findViewById(R.id.tvItemCategory);
+            imageView = (ImageView) itemView.findViewById(R.id.imageView);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -64,6 +66,16 @@ public class ChildRecycleAdapter extends RecyclerView.Adapter<ChildRecycleAdapte
         holder.tvAmountTextView.setText(transaction.getAmount()+"€");
         holder.tvCategoryTextView.setText(transaction.getTransactionTypes());
         holder.tvDateTextView.setText(simpleDateFormat.format(transaction.getDate()));
+
+        if(transaction.getTransactionTypes().equals("General")){
+            holder.imageView.setImageResource(R.drawable.house_icon);
+        }else if (transaction.getTransactionTypes().equals("Clothes")){
+            holder.imageView.setImageResource(R.drawable.clothes_icon);
+        }else if(transaction.getTransactionTypes().equals("Food")){
+            holder.imageView.setImageResource(R.drawable.food_icon);
+        }else if(transaction.getTransactionTypes().equals("Insurance")){
+            holder.imageView.setImageResource(R.drawable.insurance_icon);
+        }
     }
 
     @Override

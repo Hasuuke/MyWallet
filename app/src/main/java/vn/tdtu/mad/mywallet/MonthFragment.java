@@ -88,7 +88,6 @@ public class MonthFragment extends Fragment {
             data.add(new PieEntry(new BigDecimal(array[3]).setScale(2, RoundingMode.HALF_UP).floatValue(),"Insurance"));
         }
         return data;
-
     }
 
     @Override
@@ -105,7 +104,7 @@ public class MonthFragment extends Fragment {
                 bundle.putString("Pos", String.valueOf(position));
                 yearFragment yearFragment = new yearFragment();
                 yearFragment.setArguments(bundle);
-                FragmentManager fragmentManager = Objects.requireNonNull(getActivity()).getSupportFragmentManager();
+                FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.frameLayout,yearFragment);
                 fragmentTransaction.commit();
@@ -124,7 +123,7 @@ public class MonthFragment extends Fragment {
         pieDataSet.setValueTextColor(Color.BLACK);
 
         pieDataSet.setValueTextSize(16f);
-        pieChart.getDescription().setEnabled(true);
+        pieChart.getDescription().setEnabled(false);
         return view;
     }
 }

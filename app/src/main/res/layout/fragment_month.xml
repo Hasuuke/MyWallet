@@ -3,14 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/teal_700"
     android:orientation="vertical"
     tools:context=".MonthFragment">
 
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/pcMonth"
         android:layout_width="match_parent"
-        android:layout_height="319dp">
+        android:layout_height="395dp">
 
     </com.github.mikephil.charting.charts.PieChart>
 
@@ -18,6 +17,9 @@
         android:id="@+id/btnShowYear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="14dp"
+        android:backgroundTint="@color/green"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:text="Show Year" />
 
 </LinearLayout>

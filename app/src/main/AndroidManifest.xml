@@ -11,13 +11,19 @@
         android:theme="@style/Theme.MyWallet">
         <activity
             android:name=".StatisticActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:theme="@style/DemoTheme"
+        />
         <activity
             android:name=".AddTransactionActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:theme="@style/DemoTheme"
+            />
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/DemoTheme"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

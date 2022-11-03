@@ -152,7 +152,7 @@ public class yearFragment extends Fragment {
                 bundle.putString("Pos", String.valueOf(position));
                 MonthFragment monthFragment = new MonthFragment();
                 monthFragment.setArguments(bundle);
-                FragmentManager fragmentManager = Objects.requireNonNull(getActivity()).getSupportFragmentManager();
+                FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.frameLayout,monthFragment);
                 fragmentTransaction.commit();
@@ -168,7 +168,7 @@ public class yearFragment extends Fragment {
         pieDataSet.setValueTextColor(Color.BLACK);
 
         pieDataSet.setValueTextSize(16f);
-        pieChart.getDescription().setEnabled(true);
+        pieChart.getDescription().setEnabled(false);
 
         return view;
     }

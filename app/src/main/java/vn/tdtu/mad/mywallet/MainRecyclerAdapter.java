@@ -14,7 +14,6 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
     ArrayList<SectionDay> sectionDayList;
     private final RecyclerViewInterface recyclerViewInterface;
 
-
     public MainRecyclerAdapter(ArrayList<SectionDay> sectionDayList, RecyclerViewInterface recyclerViewInterface) {
         this.sectionDayList = sectionDayList;
         this.recyclerViewInterface = recyclerViewInterface;
@@ -50,7 +49,7 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
         ChildRecycleAdapter childRecycleAdapter =new ChildRecycleAdapter(items,recyclerViewInterface);
 
         holder.monthDate.setText(sectionDay.getDayName());
-        holder.tvDayCost.setText("Total Day Cost: " + sectionDay.getDayCost());
+        holder.tvDayCost.setText("Day Cost: " + sectionDay.getDayCost());
         holder.childRecycleView.setAdapter(childRecycleAdapter);
     }
 
